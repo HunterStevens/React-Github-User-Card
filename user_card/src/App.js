@@ -27,10 +27,6 @@ class App extends React.Component
       console.log("ERROR: ", err)
     })
 
-  }
-
-  componentDidUpdate(){
-    console.log("ComponentDidUpdate execute");
     axios.get(`${this.state.user.followers_url}`)
     .then(res=>{
       console.log("Followers Api grabbed", res)
@@ -42,6 +38,24 @@ class App extends React.Component
     .catch(err=>{
       console.log("ERROR: ",err)
     })
+  }
+
+  componentDidUpdate(){
+    console.log("ComponentDidUpdate execute");
+
+  }
+
+  changePage = () =>{
+    axios.get(`${this.state.friends.url}`)
+     .then(res =>{
+       console.log('new page api:', res.data)
+       this.setState({
+         user:res.data
+       })
+     })
+     .catch(err =>{
+       console.log("ERROR: ",err)
+     })
   }
 
   componentWillUnmount(){
@@ -61,7 +75,7 @@ class App extends React.Component
         <h1>Followers</h1>
         {this.state.friends.map(peeps=>{
          return(
-         <div key={peeps.id}>{peeps.login}
+         <div onClick={this.changePage} key={peeps.id}>{peeps.login}
          <img src={peeps.avatar_url} width='200px'/>
          </div>
          ) 
