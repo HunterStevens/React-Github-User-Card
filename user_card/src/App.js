@@ -61,7 +61,7 @@ class App extends React.Component
         <h1>Followers</h1>
         {this.state.friends.map(peeps=>{
          return(
-         <div>{peeps.login}
+         <div key={peeps.id}>{peeps.login}
          <img src={peeps.avatar_url} width='200px'/>
          </div>
          ) 
